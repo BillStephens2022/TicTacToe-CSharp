@@ -1,8 +1,16 @@
 ﻿namespace TicTacToe_CSharp
 {
     internal class Program
+
     {
         // the playField matrix - represents the 9 boxes on a TicTacToe board
+        static char[,] initialBoardValues =
+        {
+            {'1', '2', '3' },
+            {'4', '5', '6' },
+            {'7', '8', '9' },
+        };
+
         static char[,] boardValues =
         {
             {'1', '2', '3' },
@@ -34,6 +42,40 @@
                 }
 
                 SetBoard();
+
+                #region
+                // Check winning conditions
+                char[] playerChars = { 'X', 'O' };
+                foreach (char playerChar in playerChars)
+                {
+                    if (((boardValues[0,0] == playerChar) && (boardValues[0,1] == playerChar) & (boardValues[0,2] == playerChar)) // checks 1st row
+                        || ((boardValues[1, 0] == playerChar) && (boardValues[1, 1] == playerChar) & (boardValues[1, 2] == playerChar))// checks 2nd row
+                        || ((boardValues[2, 0] == playerChar) && (boardValues[2, 1] == playerChar) & (boardValues[2, 2] == playerChar))// checks 3rd row
+                        || ((boardValues[0, 0] == playerChar) && (boardValues[1, 0] == playerChar) & (boardValues[2, 0] == playerChar)) // checks 1st column
+                        || ((boardValues[0, 1] == playerChar) && (boardValues[1, 1] == playerChar) & (boardValues[2, 1] == playerChar)) // checks 2nd column
+                        || ((boardValues[0, 2] == playerChar) && (boardValues[1, 2] == playerChar) & (boardValues[2, 2] == playerChar)) // checks 3rd column
+                        || ((boardValues[0, 0] == playerChar) && (boardValues[1, 1] == playerChar) & (boardValues[2, 2] == playerChar)) // checks left to right diag
+                        || ((boardValues[0, 2] == playerChar) && (boardValues[1, 1] == playerChar) & (boardValues[2, 0] == playerChar))  // checks right to left diag
+                        )
+                    {
+                        if (playerChar == 'X')
+                        {
+                            Console.WriteLine("\nPlayer 2 has won!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nPlayer 1 has won!");
+
+                        }
+                        Console.WriteLine("Please press any key to reset game...");
+                        Console.ReadKey();
+                        
+                        ResetBoard();
+
+                        break;
+                    }
+                }
+                #endregion
 
                 #region
                 // Test if field has already been selected
@@ -100,6 +142,13 @@
             } while (true);
         }
 
+        // reset fields to inital values
+        public static void ResetBoard()
+        {
+            boardValues = initialBoardValues;
+            SetBoard();
+        }
+
         // display the TicTacToe Board based on the boardValues
 
         public static void SetBoard()
@@ -136,6 +185,8 @@
                 case 5: boardValues[1, 1] = playerChar; break;
                 case 6: boardValues[1, 2] = playerChar; break;
                 case 7: boardValues[2, 0] = playerChar; break;
+                case 8: boardValues[2, 1] = playerChar; break;
+                case 9: boardValues[2, 2] = playerChar; break;
             }
         }
     }
