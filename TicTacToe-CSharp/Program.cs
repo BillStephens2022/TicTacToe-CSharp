@@ -18,6 +18,8 @@
             {'7', '8', '9' },
         };
 
+        static int turns = 0;
+
         static void Main(string[] args)
         {
             int playerNumber = 2; // player 1 starts
@@ -72,6 +74,14 @@
                         
                         ResetBoard();
 
+                        break;
+                    }
+                    else if (turns == 10)
+                    {
+                        Console.WriteLine("We have a Draw!!");
+                        Console.WriteLine("Please press any key to reset game...");
+                        Console.ReadKey();
+                        ResetBoard();
                         break;
                     }
                 }
@@ -147,6 +157,7 @@
         {
             boardValues = initialBoardValues;
             SetBoard();
+            turns = 0;
         }
 
         // display the TicTacToe Board based on the boardValues
@@ -163,6 +174,7 @@
             Console.WriteLine("     |     |     ");
             Console.WriteLine("  {0}  |  {1}  |  {2}  ", boardValues[2, 0], boardValues[2, 1], boardValues[2, 2]);
             Console.WriteLine("     |     |     ");
+            turns++;
         }
 
         public static void EnterXorO(int playerNumber, int userInput)
