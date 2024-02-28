@@ -17,10 +17,11 @@
             bool isValidInput = true;
 
            SetBoard();
-           Console.ReadKey();
+          
 
             do
             {
+                
                 if (playerNumber == 2)
                 {
                     playerNumber = 1;
@@ -32,12 +33,69 @@
                     EnterXorO(playerNumber, userInput);
                 }
 
+                SetBoard();
+
+                #region
+                // Test if field has already been selected
                 do
                 {
                     Console.Write("\nPlayer {0}: Choose your field by number: ", playerNumber);
-                    userInput = Convert.ToInt32(Console.ReadLine());
+                    try
+                    {
+                        userInput = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Please enter a number!");
+                    }
+
+                    if ((userInput == 1) && (boardValues[0, 0] == '1'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 2) && (boardValues[0, 1] == '2'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 3) && (boardValues[0, 2] == '3'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 4) && (boardValues[1, 0] == '4'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 5) && (boardValues[1, 1] == '5'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 6) && (boardValues[1, 2] == '6'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 7) && (boardValues[2, 0] == '7'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 8) && (boardValues[2, 1] == '8'))
+                    {
+                        isValidInput = true;
+                    }
+                    else if ((userInput == 9) && (boardValues[2, 2] == '9'))
+                    {
+                        isValidInput = true;
+                    }
+                    else
+                    {
+                        isValidInput = false;   
+                        Console.WriteLine("Incorrect Input, please choose another field!");
+                    }
+                   
+
 
                 } while (!isValidInput);
+
+                #endregion
 
             } while (true);
         }
@@ -46,6 +104,7 @@
 
         public static void SetBoard()
         {
+            Console.Clear();
             Console.WriteLine("     |     |     ");
             Console.WriteLine("  {0}  |  {1}  |  {2}  ", boardValues[0,0], boardValues[0,1], boardValues[0, 2]);
             Console.WriteLine("_____|_____|_____");
